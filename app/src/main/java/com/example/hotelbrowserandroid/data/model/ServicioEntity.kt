@@ -10,10 +10,7 @@ data class ServicioEntity(
     val type: String,  // Tipo de servicio
     val description: String,  // Breve descripción del servicio
     val location: String,  // Dirección o ubicación física
-    val latitud: Double,  // Coordenadas para Google Maps
-    val longitud: Double,
     val price: Double,  // Precio base o promedio para reservas
-    val category: String,  // Categoría o clasificación
     val imgUrl: String?,  // URL para la imagen
     val available: Boolean  // Estado de disponibilidad
 )

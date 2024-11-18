@@ -13,9 +13,6 @@ interface ReservaDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(reservaEntity: ReservaEntity)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(reservaEntities: List<ReservaEntity>)
-
     @Update
     suspend fun update(reservaEntity: ReservaEntity)
 
@@ -27,7 +24,4 @@ interface ReservaDao {
 
     @Query("SELECT * FROM reserva")
     suspend fun getAllReservas(): List<ReservaEntity>
-
-    @Query("SELECT * FROM reserva WHERE servicioId = :servicioId")
-    suspend fun getReservasByServicio(servicioId: String): List<ReservaEntity>
 }

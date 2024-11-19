@@ -4,10 +4,20 @@ import com.example.hotelbrowserandroid.data.local.ReservaDao
 import com.example.hotelbrowserandroid.data.model.ReservaEntity
 import javax.inject.Inject
 
-class ReservasRepository @Inject constructor(private val reservaDao: ReservaDao) {
-    suspend fun insertReserva(reservaEntity: ReservaEntity) = reservaDao.insert(reservaEntity)
-    suspend fun updateReserva(reservaEntity: ReservaEntity) = reservaDao.update(reservaEntity)
-    suspend fun deleteReserva(reservaEntity: ReservaEntity) = reservaDao.delete(reservaEntity)
-    suspend fun getReservaById(id: String) = reservaDao.getReservaById(id)
-    suspend fun getAllReservas() = reservaDao.getAllReservas()
+class ReservasRepository @Inject constructor(
+    private val reservaDao: ReservaDao
+) {
+    suspend fun getAllReservas(): List<ReservaEntity> {
+        return reservaDao.getAllReservas()
+    }
+    suspend fun getReservaById(id: String): ReservaEntity? {
+        return reservaDao.getReservaById(id)
+    }
+
+    suspend fun getReservasByUserId(userId: String): List<ReservaEntity> {
+        return reservaDao.getReservasByUserId(userId)
+    }
+    suspend fun insertReserva(reserva: ReservaEntity) {
+        reservaDao.insertReserva(reserva)
+    }
 }

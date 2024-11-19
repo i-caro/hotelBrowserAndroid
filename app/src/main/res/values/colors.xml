@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Primary colors -->
+    <color name="primary_color">#121212</color>
+    <color name="primary_variant_color">#1E1E1E</color>
+    <color name="on_primary_color">#FFFFFF</color>
+
+    <!-- Secondary colors -->
+    <color name="secondary_color">#2196F3</color>
+    <color name="secondary_variant_color">#64B5F6</color>
+    <color name="on_secondary_color">#FFFFFF</color>
+
+    <!-- Background and surface -->
+    <color name="background_color">#121212</color>
+    <color name="surface_color">#1E1E1E</color>
+
+    <!-- Text colors -->
+    <color name="on_background_color">#B0BEC5</color>
+    <color name="on_surface_color">#FFFFFF</color>
 </resources>

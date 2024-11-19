@@ -9,26 +9,27 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.example.hotelbrowserandroid.databinding.FragmentReservaBinding
-import com.example.hotelbrowserandroid.ui.adapters.ReservasAdapter
-import com.example.hotelbrowserandroid.ui.viewmodel.ReservaViewModel
+import com.example.hotelbrowserandroid.databinding.FragmentServiceBinding
+import com.example.hotelbrowserandroid.ui.adapters.ServiciosAdapter
+
+import com.example.hotelbrowserandroid.ui.viewmodel.ServicioViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ReservaFragment : Fragment() {
+class ServicioFragment : Fragment() {
 
-    private var _binding: FragmentReservaBinding? = null
+    private var _binding: FragmentServiceBinding? = null
     private val binding get() = _binding!!
 
-    private val reservaViewModel: ReservaViewModel by viewModels()
+    private val servicioViewModel: ServicioViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentReservaBinding.inflate(inflater, container, false)
+        _binding = FragmentServiceBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -37,8 +38,8 @@ class ReservaFragment : Fragment() {
 
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                reservaViewModel.reservas.collect {
-                    binding.reservasRecyclerView.adapter = ReservasAdapter()
+                servicioViewModel.servicios.collect {
+                    binding.servicesRecyclerView.adapter = ServiciosAdapter()
                 }
             }
         }

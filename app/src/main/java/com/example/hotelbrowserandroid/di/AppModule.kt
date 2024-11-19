@@ -1,6 +1,7 @@
 package com.example.hotelbrowserandroid.di
 
 import android.content.Context
+import androidx.room.Room
 import com.example.hotelbrowserandroid.data.local.AppDatabase
 import com.example.hotelbrowserandroid.data.local.ReservaDao
 import com.example.hotelbrowserandroid.data.local.ServicioDao
@@ -14,27 +15,28 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class AppModule {
+object AppModule {
 
-    @Singleton
     @Provides
-    fun provideDatabase(@ApplicationContext context: Context): AppDatabase {
-        return AppDatabase.getDatabase(context)
+    @Singleton
+    fun provideAppDatabase(@ApplicationContext context: Context): AppDatabase {
+        return Room.databaseBuilder(
+            context,
+            AppDatabase::class.java,
+            "hotel_browser_db"
+        ).build()
     }
 
-    @Singleton
     @Provides
     fun provideServicioDao(database: AppDatabase): ServicioDao {
         return database.servicioDao()
     }
 
-    @Singleton
     @Provides
     fun provideReservaDao(database: AppDatabase): ReservaDao {
         return database.reservaDao()
     }
 
-    @Singleton
     @Provides
     fun provideUserDao(database: AppDatabase): UserDao {
         return database.userDao()

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="reserva"
+            type="com.example.hotelbrowserandroid.data.model.ReservaEntity" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/bookingId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Reserva: @{booking.id}" />
+
+        <TextView
+            android:id="@+id/bookingService"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Servicio: @{booking.serviceId}" />
+
+        <TextView
+            android:id="@+id/bookingStartDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Inicio: @{booking.startDate}" />
+    </LinearLayout>
+</layout>

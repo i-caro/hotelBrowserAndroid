@@ -61,7 +61,7 @@ android {
         implementation(libs.material.v160)
         implementation(libs.androidx.recyclerview)
         implementation(libs.androidx.lifecycle.viewmodel.compose)
-        implementation(libs.androidx.constraintlayout.compose.v101)
+        implementation (libs.androidx.constraintlayout)
         implementation(kotlin("script-runtime"))
     }
 

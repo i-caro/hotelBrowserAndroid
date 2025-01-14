@@ -9,7 +9,7 @@ import com.example.hotelbrowserandroid.data.local.entity.UserEntity
 interface UserDao {
 
     @Insert
-    suspend fun insertUser(user: UserEntity):Int
+    suspend fun insertUser(user: UserEntity)
 
     //@Query("SELECT * FROM users WHERE email = :email AND password = :password")
     //suspend fun getUser(email: String, password: String): List<UserEntity>

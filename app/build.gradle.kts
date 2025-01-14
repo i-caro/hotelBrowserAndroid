@@ -44,7 +44,6 @@ android {
 dependencies {
     // Coil
     implementation(libs.coil)
-    implementation(libs.coil.network.okhttp)
 
     // Hilt
     implementation(libs.hilt.android)
@@ -81,7 +80,6 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity.ktx)
-    implementation(libs.androidx.constraintlayout)
 
     // Testing
     testImplementation(libs.junit)

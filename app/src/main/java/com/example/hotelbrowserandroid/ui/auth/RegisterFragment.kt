@@ -32,7 +32,9 @@ class RegisterFragment : Fragment() {
 
         binding.registerButton.setOnClickListener {
             val name = binding.nameInput.text.toString()
+            val surname = binding.surnameInput.text.toString()
             val email = binding.emailInput.text.toString()
+            val phone = binding.phoneInput.text.toString()
             val password = binding.passwordInput.text.toString()
 
             if (name.isBlank()) {
@@ -40,8 +42,18 @@ class RegisterFragment : Fragment() {
                 return@setOnClickListener
             }
 
+            if (surname.isBlank()) {
+                Toast.makeText(requireContext(), "Surname cannot be empty", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
             if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                 Toast.makeText(requireContext(), "Invalid email format", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            if (phone.isBlank() || !phone.matches(Regex("^\\+?[0-9]{10,15}\$"))) {
+                Toast.makeText(requireContext(), "Invalid phone number format", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
@@ -54,7 +66,7 @@ class RegisterFragment : Fragment() {
                 if (authViewModel.isEmailRegistered(email)) {
                     Toast.makeText(requireContext(), "Email is already registered", Toast.LENGTH_SHORT).show()
                 } else {
-                    val isSuccess = authViewModel.register(name, email, password)
+                    val isSuccess = authViewModel.register(name, surname, email, phone, password)
                     if (isSuccess) {
                         Toast.makeText(requireContext(), "Registration successful", Toast.LENGTH_SHORT).show()
                         findNavController().navigate(R.id.action_register_to_login)

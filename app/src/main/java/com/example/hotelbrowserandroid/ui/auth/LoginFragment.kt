@@ -1,5 +1,6 @@
 package com.example.hotelbrowserandroid.ui.auth
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -38,17 +39,15 @@ class LoginFragment : Fragment() {
             viewLifecycleOwner.lifecycleScope.launch {
                 val isSuccess = authViewModel.login(email, password)
                 if (isSuccess) {
+                    val sharedPreferences = requireContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+                    sharedPreferences.edit().putString("logged_in_user_email", email).apply()
+
                     Toast.makeText(requireContext(), "Login successful", Toast.LENGTH_SHORT).show()
-                    // Navigate to the main activity or dashboard
-                    findNavController().navigate(R.id.action_login_to_dashboard)
+                    findNavController().navigate(R.id.action_login_to_home)
                 } else {
                     Toast.makeText(requireContext(), "Invalid email or password", Toast.LENGTH_SHORT).show()
                 }
             }
-        }
-
-        binding.registerText.setOnClickListener {
-            findNavController().navigate(R.id.action_login_to_register)
         }
     }
 }

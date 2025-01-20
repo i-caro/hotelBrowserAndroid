@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/profileFragment">
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.hotelbrowserandroid.ui.auth.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/serviceFragment"
+        android:name="com.example.hotelbrowserandroid.ui.auth.ServicesFragment"
+        android:label="Services"
+        tools:layout="@layout/fragment_service" />
+
+    <fragment
+        android:id="@+id/bookingFragment"
+        android:name="com.example.hotelbrowserandroid.ui.auth.BookingsFragment"
+        android:label="Bookings"
+        tools:layout="@layout/fragment_booking" />
+</navigation>

@@ -13,8 +13,8 @@
             android:id="@+id/action_login_to_register"
             app:destination="@id/registerFragment" />
         <action
-            android:id="@+id/action_login_to_dashboard"
-            app:destination="@id/dashboardFragment" />
+            android:id="@+id/action_login_to_home"
+            app:destination="@id/homeFragment" />
     </fragment>
 
     <fragment
@@ -27,10 +27,9 @@
             app:destination="@id/loginFragment" />
     </fragment>
 
-    <!-- Placeholder for DashboardFragment -->
     <fragment
-        android:id="@+id/dashboardFragment"
-        android:name="com.example.app.ui.dashboard.DashboardFragment"
-        android:label="Dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/homeFragment"
+        android:name="com.example.hotelbrowserandroid.ui.auth.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home" />
 </navigation>

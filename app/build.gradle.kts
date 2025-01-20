@@ -47,6 +47,7 @@ dependencies {
 
     // Hilt
     implementation(libs.hilt.android)
+    implementation(libs.androidx.recyclerview)
     kapt(libs.hilt.compiler)
 
     // Gson

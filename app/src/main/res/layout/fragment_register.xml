@@ -30,18 +30,41 @@
         app:layout_constraintTop_toBottomOf="@id/registerTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp" />
 
     <EditText
-        android:id="@id/emailInput"
+        android:id="@+id/surnameInput"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Email"
+        android:hint="Surname"
         android:backgroundTint="@color/dark_blue"
         app:layout_constraintTop_toBottomOf="@id/nameInput"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp" />
+
+    <EditText
+        android:id="@+id/emailInput"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Email"
+        android:backgroundTint="@color/dark_blue"
+        app:layout_constraintTop_toBottomOf="@id/surnameInput"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <EditText
+        android:id="@+id/phoneInput"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Phone Number"
+        android:inputType="phone"
+        android:backgroundTint="@color/dark_blue"
+        app:layout_constraintTop_toBottomOf="@id/emailInput"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
 
     <EditText
         android:id="@+id/passwordInput"
@@ -50,10 +73,10 @@
         android:hint="Password"
         android:inputType="textPassword"
         android:backgroundTint="@color/dark_blue"
-        app:layout_constraintTop_toBottomOf="@id/emailInput"
+        app:layout_constraintTop_toBottomOf="@id/phoneInput"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp" />
 
     <Button
         android:id="@+id/registerButton"
@@ -64,7 +87,7 @@
         app:layout_constraintTop_toBottomOf="@id/passwordInput"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp" />
 
     <TextView
         android:id="@+id/loginButton"
@@ -75,5 +98,6 @@
         app:layout_constraintTop_toBottomOf="@id/registerButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

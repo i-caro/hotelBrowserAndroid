@@ -11,9 +11,9 @@ interface UserDao {
     @Insert
     suspend fun insertUser(user: UserEntity)
 
-    //@Query("SELECT * FROM users WHERE email = :email AND password = :password")
-    //suspend fun getUser(email: String, password: String): List<UserEntity>
+    @Query("SELECT * FROM users WHERE email = :email AND password = :password")
+    suspend fun getUser(email: String, password: String): List<UserEntity>
 
-    //@Query("SELECT EXISTS(SELECT 1 FROM users WHERE email = :email)")
-    //suspend fun isEmailRegistered(email: String): Boolean
+    @Query("SELECT EXISTS(SELECT 1 FROM users WHERE email = :email)")
+    suspend fun isEmailRegistered(email: String): Boolean
 }

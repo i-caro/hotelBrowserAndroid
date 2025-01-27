@@ -1,0 +1,86 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <!-- Select de servicios -->
+    <Spinner
+        android:id="@+id/serviceSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:hint="Select Service" />
+
+    <!-- Fecha de inicio -->
+    <EditText
+        android:id="@+id/startDateInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Start Date"
+        android:inputType="date"
+        app:layout_constraintTop_toBottomOf="@id/serviceSpinner"
+        android:layout_marginTop="16dp" />
+
+    <!-- Fecha de fin -->
+    <EditText
+        android:id="@+id/endDateInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="End Date"
+        android:inputType="date"
+        app:layout_constraintTop_toBottomOf="@id/startDateInput"
+        android:layout_marginTop="16dp" />
+
+    <!-- Cantidad de personas -->
+    <EditText
+        android:id="@+id/peopleAmountInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="People Amount"
+        android:inputType="number"
+        app:layout_constraintTop_toBottomOf="@id/endDateInput"
+        android:layout_marginTop="16dp" />
+
+    <!-- Preferencias -->
+    <EditText
+        android:id="@+id/preferencesInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Preferences"
+        app:layout_constraintTop_toBottomOf="@id/peopleAmountInput"
+        android:layout_marginTop="16dp" />
+
+    <!-- Estado -->
+    <Spinner
+        android:id="@+id/statusSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/booking_status"
+        app:layout_constraintTop_toBottomOf="@id/preferencesInput"
+        android:layout_marginTop="16dp" />
+
+    <!-- Precio total -->
+    <EditText
+        android:id="@+id/totalPriceInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Total Price"
+        android:inputType="numberDecimal"
+        app:layout_constraintTop_toBottomOf="@id/statusSpinner"
+        android:layout_marginTop="16dp" />
+
+    <!-- Botón de añadir reserva -->
+    <Button
+        android:id="@+id/addBookingButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Booking"
+        app:layout_constraintTop_toBottomOf="@id/totalPriceInput"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>

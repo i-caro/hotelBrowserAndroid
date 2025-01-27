@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/profileFragment"
+        android:id="@+id/profile"
         android:icon="@drawable/perfil_del_usuario"
         android:title="Profile" />
     <item
-        android:id="@+id/serviceFragment"
+        android:id="@+id/service"
         android:icon="@drawable/cama"
         android:title="Services" />
     <item
-        android:id="@+id/bookingFragment"
+        android:id="@+id/booking"
         android:icon="@drawable/libro"
         android:title="Reservations" />
 </menu>

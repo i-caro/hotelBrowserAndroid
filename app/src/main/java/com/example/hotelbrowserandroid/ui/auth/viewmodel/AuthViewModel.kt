@@ -10,11 +10,16 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
     private val userDao = AppDatabase.getDatabase(application).userDao()
 
     suspend fun login(email: String, password: String): Boolean {
-        return true
+        val user = userDao.getUser(email, password)
+        return user!=null
     }
 
     suspend fun isEmailRegistered(email: String): Boolean {
         return userDao.isEmailRegistered(email)
+    }
+
+    suspend fun getLoggedInUser(email: String): UserEntity? {
+        return userDao.getUserByEmail(email)
     }
 
     suspend fun register(name: String, email: String, password: String, surname: String, phone: String): Boolean {

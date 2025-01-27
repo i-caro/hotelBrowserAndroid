@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.hotelbrowserandroid.R
 import com.example.hotelbrowserandroid.data.local.entity.BookingEntity
 import com.example.hotelbrowserandroid.databinding.FragmentBookingBinding
@@ -31,5 +32,9 @@ class BookingsFragment : Fragment() {
 
         val adapter = BookingAdapter(bookings)
         binding.bookingsRecyclerView.adapter = adapter
+
+        binding.addBookingButton.setOnClickListener {
+            findNavController().navigate(R.id.action_bookingsFragment_to_addBookingFragment)
+        }
     }
 }

@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import com.example.hotelbrowserandroid.R
 import com.example.hotelbrowserandroid.data.local.AppDatabase
 import com.example.hotelbrowserandroid.databinding.FragmentProfileBinding
 import kotlinx.coroutines.launch
@@ -24,6 +26,8 @@ class ProfileFragment : Fragment() {
         return binding.root
     }
 
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -31,7 +35,26 @@ class ProfileFragment : Fragment() {
 
         // Fetch user data
         fetchUserData()
+
+        binding.editProfileButton.setOnClickListener {
+            findNavController().navigate(R.id.action_profileFragment_to_editProfileFragment)
+        }
+
+        binding.logoutButton.setOnClickListener {
+            logoutUser()
+        }
     }
+
+    private fun logoutUser() {
+        // Limpiar SharedPreferences
+        val sharedPreferences = requireContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+        sharedPreferences.edit().clear().apply()
+
+        // Redirigir al LoginFragment
+        Toast.makeText(requireContext(), "Logged out successfully", Toast.LENGTH_SHORT).show()
+        findNavController().navigate(R.id.action_profileFragment_to_loginFragment)
+    }
+
 
     private fun fetchUserData() {
         val sharedPreferences = requireContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
@@ -42,6 +65,7 @@ class ProfileFragment : Fragment() {
                 val user = appDatabase.userDao().getUserByEmail(email)
                 if (user != null) {
                     binding.userName.text = user.name
+                    binding.userSurname.text = user.surname
                     binding.userEmail.text = user.email
                     binding.userPhone.text = user.phone
                 } else {

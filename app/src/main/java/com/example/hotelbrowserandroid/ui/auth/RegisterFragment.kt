@@ -66,7 +66,7 @@ class RegisterFragment : Fragment() {
                 if (authViewModel.isEmailRegistered(email)) {
                     Toast.makeText(requireContext(), "Email is already registered", Toast.LENGTH_SHORT).show()
                 } else {
-                    val isSuccess = authViewModel.register(name, surname, email, phone, password)
+                    val isSuccess = authViewModel.register(name, email, password, surname, phone)
                     if (isSuccess) {
                         Toast.makeText(requireContext(), "Registration successful", Toast.LENGTH_SHORT).show()
                         findNavController().navigate(R.id.action_register_to_login)

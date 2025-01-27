@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">hotelBrowserAndroid</string>
+    <string-array name="booking_status">
+        <item>Paid</item>
+        <item>Pending</item>
+    </string-array>
 </resources>

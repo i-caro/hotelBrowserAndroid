@@ -6,17 +6,17 @@ import androidx.room.Query
 import com.example.hotelbrowserandroid.data.local.entity.BookingEntity
 
 @Dao
-interface ReservationDao {
+interface BookingDao {
 
     @Insert
-    suspend fun insertReservation(reservation: BookingEntity)
+    suspend fun insertBooking(booking: BookingEntity)
 
     @Query("SELECT * FROM bookings")
-    suspend fun getAllReservations(): List<BookingEntity>
+    suspend fun getAllBookings(): List<BookingEntity>
 
     @Query("SELECT * FROM bookings WHERE userId = :userId")
-    suspend fun getReservationsByUser(userId: Int): List<BookingEntity>
+    suspend fun getBookingsByUser(userId: Int): List<BookingEntity>
 
     @Query("SELECT * FROM bookings WHERE id = :reservationId")
-    suspend fun getReservationById(reservationId: Int): BookingEntity?
+    suspend fun getBookingById(reservationId: Int): BookingEntity?
 }

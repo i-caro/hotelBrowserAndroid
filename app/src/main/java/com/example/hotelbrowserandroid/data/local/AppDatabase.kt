@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.hotelbrowserandroid.data.local.dao.ReservationDao
+import com.example.hotelbrowserandroid.data.local.dao.BookingDao
 import com.example.hotelbrowserandroid.data.local.dao.ServiceDao
 import com.example.hotelbrowserandroid.data.local.dao.UserDao
 import com.example.hotelbrowserandroid.data.local.entity.BookingEntity
@@ -17,10 +17,9 @@ import com.example.hotelbrowserandroid.data.local.entity.UserEntity
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
-
     abstract fun userDao(): UserDao
     abstract fun serviceDao(): ServiceDao
-    abstract fun reservationDao(): ReservationDao
+    abstract fun bookingDao(): BookingDao
 
     companion object {
         @Volatile
@@ -32,9 +31,7 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "app_database"
-                )
-                    .fallbackToDestructiveMigration()
-                    .build()
+                ).build()
                 INSTANCE = instance
                 instance
             }

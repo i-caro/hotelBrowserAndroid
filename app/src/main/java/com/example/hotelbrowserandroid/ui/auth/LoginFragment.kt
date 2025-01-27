@@ -39,15 +39,24 @@ class LoginFragment : Fragment() {
             viewLifecycleOwner.lifecycleScope.launch {
                 val isSuccess = authViewModel.login(email, password)
                 if (isSuccess) {
-                    val sharedPreferences = requireContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+                    val sharedPreferences =
+                        requireContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
                     sharedPreferences.edit().putString("logged_in_user_email", email).apply()
 
                     Toast.makeText(requireContext(), "Login successful", Toast.LENGTH_SHORT).show()
-                    findNavController().navigate(R.id.action_login_to_home)
+                    findNavController().navigate(R.id.action_loginFragment_to_profile)
                 } else {
-                    Toast.makeText(requireContext(), "Invalid email or password", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "Invalid email or password",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
+        }
+
+        binding.registerText.setOnClickListener {
+            findNavController().navigate(R.id.action_login_to_register)
         }
     }
 }

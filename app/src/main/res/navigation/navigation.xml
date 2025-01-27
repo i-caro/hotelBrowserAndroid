@@ -13,8 +13,8 @@
             android:id="@+id/action_login_to_register"
             app:destination="@id/registerFragment" />
         <action
-            android:id="@+id/action_login_to_home"
-            app:destination="@id/homeFragment" />
+            android:id="@+id/action_loginFragment_to_profile"
+            app:destination="@id/profile" />
     </fragment>
 
     <fragment
@@ -26,10 +26,8 @@
             android:id="@+id/action_register_to_login"
             app:destination="@id/loginFragment" />
     </fragment>
+    <include app:graph="@navigation/profile" />
+    <include app:graph="@navigation/service" />
+    <include app:graph="@navigation/booking" />
 
-    <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.example.hotelbrowserandroid.ui.auth.HomeFragment"
-        android:label="Home"
-        tools:layout="@layout/fragment_home" />
 </navigation>

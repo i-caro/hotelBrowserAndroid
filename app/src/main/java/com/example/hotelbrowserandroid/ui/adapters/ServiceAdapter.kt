@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.hotelbrowserandroid.R
 import com.example.hotelbrowserandroid.data.local.entity.ServiceEntity
 
-class ServiceAdapter(private val services: List<ServiceEntity>) :
+class ServiceAdapter(private var services: MutableList<ServiceEntity>) :
     RecyclerView.Adapter<ServiceAdapter.ServiceViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ServiceViewHolder {
@@ -22,6 +22,13 @@ class ServiceAdapter(private val services: List<ServiceEntity>) :
     }
 
     override fun getItemCount(): Int = services.size
+
+    // Function to update the list dynamically
+    fun submitList(newServices: List<ServiceEntity>) {
+        services.clear() // Clear the old list
+        services.addAll(newServices) // Add the new list
+        notifyDataSetChanged() // Notify RecyclerView to refresh
+    }
 
     class ServiceViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val nameTextView: TextView = itemView.findViewById(R.id.serviceName)

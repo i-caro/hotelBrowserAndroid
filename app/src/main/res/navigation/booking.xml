@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/booking"
+    app:startDestination="@id/bookingsFragment">
+
+    <fragment
+        android:id="@+id/bookingsFragment"
+        android:name="com.example.hotelbrowserandroid.ui.auth.BookingsFragment"
+        android:label="BookingsFragment" >
+        <action
+            android:id="@+id/action_bookingsFragment_to_addBookingFragment"
+            app:destination="@id/addBookingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addBookingFragment"
+        android:name="com.example.hotelbrowserandroid.ui.auth.AddBookingFragment"
+        android:label="AddBookingFragment" >
+        <action
+            android:id="@+id/action_addBookingFragment_to_bookingsFragment"
+            app:destination="@id/bookingsFragment" />
+    </fragment>
+</navigation>

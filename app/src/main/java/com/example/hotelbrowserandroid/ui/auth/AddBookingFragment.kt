@@ -34,7 +34,6 @@ class AddBookingFragment : Fragment() {
 
         appDatabase = AppDatabase.getDatabase(requireContext())
 
-        // Cargar servicios en el Spinner
         viewLifecycleOwner.lifecycleScope.launch {
             val services = appDatabase.serviceDao().getAllServices()
             val adapter = ArrayAdapter(

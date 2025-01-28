@@ -1,40 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp"
-    android:background="@color/light_blue">
+    android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/reservationsTitle"
+        android:id="@+id/bookingsTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Bookings"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:textColor="@color/dark_blue"
+        android:textColor="@color/black"
+        android:layout_marginVertical="30dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp" />
 
-    <Button
-        android:id="@+id/addBookingButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add Booking"
-        app:layout_constraintTop_toBottomOf="@id/bookingsRecyclerView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_margin="16dp" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/bookingsRecyclerView"
         android:layout_width="match_parent"
+        android:layout_marginTop="70dp"
+        android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_booking" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addBookingFab"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/reservationsTitle"
+        android:contentDescription="Add Booking"
+        android:src="@drawable/anadir"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:padding="16dp" />
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="120dp"
+        app:tint="@color/dark_blue" />
 </androidx.constraintlayout.widget.ConstraintLayout>

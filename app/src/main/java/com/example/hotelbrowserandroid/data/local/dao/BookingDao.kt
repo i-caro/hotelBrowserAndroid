@@ -15,7 +15,7 @@ interface BookingDao {
     suspend fun getAllBookings(): List<BookingEntity>
 
     @Query("SELECT * FROM bookings WHERE userId = :userId")
-    suspend fun getBookingsByUser(userId: Int): List<BookingEntity>
+    suspend fun getBookingsByUserId(userId: Int): List<BookingEntity>
 
     @Query("SELECT * FROM bookings WHERE id = :reservationId")
     suspend fun getBookingById(reservationId: Int): BookingEntity?

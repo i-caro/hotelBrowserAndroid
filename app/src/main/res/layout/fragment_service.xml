@@ -24,6 +24,6 @@
         android:id="@+id/servicesRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp"
+        android:layout_marginTop="40dp"
         tools:listitem="@layout/item_service" />
 </androidx.constraintlayout.widget.ConstraintLayout>

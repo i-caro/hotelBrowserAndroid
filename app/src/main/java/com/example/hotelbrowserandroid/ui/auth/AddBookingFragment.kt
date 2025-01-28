@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.hotelbrowserandroid.data.local.AppDatabase
 import com.example.hotelbrowserandroid.data.local.entity.BookingEntity
 import com.example.hotelbrowserandroid.data.local.entity.UserEntity
+import com.example.hotelbrowserandroid.data.remote.repositories.AppRepository
 import com.example.hotelbrowserandroid.databinding.FragmentAddBookingBinding
 import kotlinx.coroutines.launch
 
@@ -21,6 +22,7 @@ class AddBookingFragment : Fragment() {
 
     private lateinit var binding: FragmentAddBookingBinding
     private lateinit var appDatabase: AppDatabase
+    private lateinit var repository: AppRepository
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -70,6 +72,7 @@ class AddBookingFragment : Fragment() {
             val selectedService = appDatabase.serviceDao().getServiceByName(selectedServiceName.toString())
             if (selectedService != null) {
                 val booking = BookingEntity(
+                    id = 0,
                     serviceId = selectedService.id,
                     userId = user.id,
                     startDate = startDate,
@@ -79,9 +82,9 @@ class AddBookingFragment : Fragment() {
                     status = status,
                     totalPayed = totalPayed
                 )
-                appDatabase.bookingDao().insertBooking(booking)
+                repository.createBooking(booking)
                 Toast.makeText(requireContext(), "Booking added successfully", Toast.LENGTH_SHORT).show()
-                findNavController().navigateUp() // Return to the previous fragment
+                findNavController().navigateUp()
             } else {
                 Toast.makeText(requireContext(), "Service not found", Toast.LENGTH_SHORT).show()
             }

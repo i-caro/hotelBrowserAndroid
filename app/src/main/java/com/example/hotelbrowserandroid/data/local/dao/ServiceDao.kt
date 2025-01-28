@@ -9,6 +9,12 @@ import com.example.hotelbrowserandroid.data.local.entity.ServiceEntity
 @Dao
 interface ServiceDao {
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAll(services: List<ServiceEntity>)
+
+    @Query("DELETE FROM services")
+    suspend fun clearAll()
+
     @Insert
     suspend fun insertService(service: ServiceEntity)
 

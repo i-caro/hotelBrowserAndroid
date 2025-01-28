@@ -3,21 +3,26 @@ package com.example.hotelbrowserandroid
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.hotelbrowserandroid.data.local.AppDatabase
 import com.example.hotelbrowserandroid.data.local.entity.ServiceEntity
+import com.example.hotelbrowserandroid.ui.auth.viewmodel.MainViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     private lateinit var bottomNav: BottomNavigationView
+    private val mainViewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        mainViewModel.syncData()
 
         populateServices()
 
@@ -40,9 +45,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun populateServices() {
         val services = listOf(
-            ServiceEntity(name = "Spa", type = "Relaxation", description = "A relaxing spa service", location = "Hotel Level 1", available = "Yes", price = 50.0),
-            ServiceEntity(name = "Gym", type = "Fitness", description = "Access to a fully equipped gym", location = "Hotel Level 2", available = "Yes", price = 30.0),
-            ServiceEntity(name = "Pool Access", type = "Recreational", description = "Access to the hotel pool", location = "Hotel Level 1", available = "Yes", price = 20.0)
+            ServiceEntity(name = "Spa", type = "Relaxation", description = "A relaxing spa service", location = "Hotel Level 1", available = "Yes", price = 50.0, id = 1),
+            ServiceEntity(name = "Gym", type = "Fitness", description = "Access to a fully equipped gym", location = "Hotel Level 2", available = "Yes", price = 30.0, id = 2),
+            ServiceEntity(name = "Pool Access", type = "Recreational", description = "Access to the hotel pool", location = "Hotel Level 1", available = "Yes", price = 20.0, id = 3)
         )
 
         val appDatabase = AppDatabase.getDatabase(this)

@@ -11,7 +11,6 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.hotelbrowserandroid.data.remote.repositories.ServiceRepository
 import com.example.hotelbrowserandroid.ui.auth.viewmodel.UserViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
@@ -45,10 +44,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun populateServices() {
         lifecycleScope.launch {
-            val existingServices = serviceRepository.getServices()
-            if (existingServices.toList().isEmpty()) {
-                serviceRepository.insertAllServices(existingServices)
-                Toast.makeText(this@MainActivity, "Services added to the database", Toast.LENGTH_SHORT).show()
+            serviceRepository.getServices().collect { existingServices ->
+                if (existingServices.isNotEmpty()) {
+                    serviceRepository.insertAllServices(existingServices)
+                    Toast.makeText(this@MainActivity, "Services added to the database", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }

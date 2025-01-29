@@ -5,16 +5,19 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import com.example.hotelbrowserandroid.data.local.AppDatabase
 import com.example.hotelbrowserandroid.data.local.entity.UserEntity
+import com.example.hotelbrowserandroid.data.remote.repositories.UserRepository
+import kotlinx.coroutines.flow.first
 
 
 class AuthViewModel(application: Application) : AndroidViewModel(application) {
 
     private val localDb: AppDatabase = AppDatabase.getDatabase(application)
     private val userDao = localDb.userDao()
+    private lateinit var usersRepository: UserRepository
 
     suspend fun login(email: String, password: String): Boolean {
         return try {
-            repository.syncUsers()
+            usersRepository.syncUsers()
 
             val user = localDb.userDao().getUser(email, password)
             user != null
@@ -29,7 +32,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     suspend fun getLoggedInUser(email: String): UserEntity? {
-        return userDao.getUserByEmail(email)
+        return usersRepository.getUserByEmail(email).first()
     }
 
     suspend fun register(name: String, email: String, password: String, surname: String, phone: String): Boolean {
@@ -44,7 +47,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                 imgUrl = ""
             )
 
-            repository.createUser(newUser)
+            usersRepository.insertUser(newUser)
             true
         } catch (e: Exception) {
             Log.e("AuthViewModel", "Registration failed", e)

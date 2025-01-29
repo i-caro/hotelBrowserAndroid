@@ -19,7 +19,7 @@ class ServiceRepository @Inject constructor(
         return serviceDao.getServiceByName(name)
     }
 
-    suspend fun insertAllServices(services: Flow<List<ServiceEntity>>){
+    suspend fun insertAllServices(services: List<ServiceEntity>){
         return serviceDao.insertServices(services)
     }
 

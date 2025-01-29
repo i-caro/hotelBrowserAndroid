@@ -6,7 +6,9 @@ import com.example.hotelbrowserandroid.data.local.entity.UserEntity
 import com.example.hotelbrowserandroid.data.remote.api.StrapiService
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class UserRepository @Inject constructor(
     private val strapiService: StrapiService,
     private val userDao: UserDao
@@ -21,6 +23,10 @@ class UserRepository @Inject constructor(
 
     suspend fun updateUser(currentEmail: String, name: String, newEmail: String, phone: String){
         return userDao.updateUserProfile(currentEmail, name, newEmail, phone)
+    }
+
+    suspend fun insertUser(user: UserEntity){
+        return userDao.insertUser(user)
     }
 
     suspend fun syncUsers() {

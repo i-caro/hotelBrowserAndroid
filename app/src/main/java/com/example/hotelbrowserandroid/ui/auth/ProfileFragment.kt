@@ -14,8 +14,10 @@ import com.example.hotelbrowserandroid.R
 import com.example.hotelbrowserandroid.data.local.AppDatabase
 import com.example.hotelbrowserandroid.databinding.FragmentProfileBinding
 import com.example.hotelbrowserandroid.ui.auth.viewmodel.UserViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class ProfileFragment : Fragment() {
 
     private var _binding: FragmentProfileBinding? = null

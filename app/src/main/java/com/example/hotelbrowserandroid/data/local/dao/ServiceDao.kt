@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 interface ServiceDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(services: Flow<List<ServiceEntity>>)
+    suspend fun insertAll(services: List<ServiceEntity>)
 
     @Query("DELETE FROM services")
     suspend fun clearAll()

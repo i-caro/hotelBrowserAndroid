@@ -5,10 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hotelbrowserandroid.R
-import com.example.hotelbrowserandroid.data.local.AppDatabase
 import com.example.hotelbrowserandroid.data.local.entity.BookingEntity
 
 class BookingAdapter(private var bookings: List<BookingEntity>) :

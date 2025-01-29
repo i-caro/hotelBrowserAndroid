@@ -5,12 +5,13 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.hotelbrowserandroid.data.local.entity.ServiceEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ServiceDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(services: List<ServiceEntity>)
+    suspend fun insertAll(services: Flow<List<ServiceEntity>>)
 
     @Query("DELETE FROM services")
     suspend fun clearAll()
@@ -19,7 +20,7 @@ interface ServiceDao {
     suspend fun insertService(service: ServiceEntity)
 
     @Query("SELECT * FROM services")
-    suspend fun getAllServices(): List<ServiceEntity>
+    fun getAllServices(): Flow<List<ServiceEntity>>
 
     @Query("SELECT * FROM services WHERE id = :serviceId")
     suspend fun getServiceById(serviceId: Int): ServiceEntity?

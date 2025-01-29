@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.hotelbrowserandroid.data.local.entity.BookingEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface BookingDao {
@@ -15,11 +16,14 @@ interface BookingDao {
     @Query("DELETE FROM bookings WHERE userId = :userId")
     suspend fun clearUserBookings(userId: Int)
 
+    @Query("DELETE FROM bookings")
+    suspend fun deleteAllBookings()
+
     @Insert
     suspend fun insertBooking(booking: BookingEntity)
 
     @Query("SELECT * FROM bookings")
-    suspend fun getAllBookings(): List<BookingEntity>
+    fun getAllBookings(): Flow<List<BookingEntity>>
 
     @Query("SELECT * FROM bookings WHERE userId = :userId")
     suspend fun getBookingsByUserId(userId: Int): List<BookingEntity>

@@ -22,12 +22,10 @@ class ServiceAdapter(private var services: MutableList<ServiceEntity>) :
     }
 
     override fun getItemCount(): Int = services.size
-
-    // Function to update the list dynamically
     fun submitList(newServices: List<ServiceEntity>) {
-        services.clear() // Clear the old list
-        services.addAll(newServices) // Add the new list
-        notifyDataSetChanged() // Notify RecyclerView to refresh
+        services.clear()
+        services.addAll(newServices)
+        notifyDataSetChanged()
     }
 
     class ServiceViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

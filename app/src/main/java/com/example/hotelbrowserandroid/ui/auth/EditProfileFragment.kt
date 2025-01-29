@@ -7,16 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.hotelbrowserandroid.data.local.AppDatabase
 import com.example.hotelbrowserandroid.databinding.FragmentEditProfileBinding
+import com.example.hotelbrowserandroid.ui.auth.viewmodel.UserViewModel
 import kotlinx.coroutines.launch
 
 class EditProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentEditProfileBinding
-    private val userDao by lazy { AppDatabase.getDatabase(requireContext()).userDao() }
+    private val viewModel: UserViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -33,12 +35,15 @@ class EditProfileFragment : Fragment() {
 
         if (email != null) {
             viewLifecycleOwner.lifecycleScope.launch {
-                val user = userDao.getUserByEmail(email)
-                user?.let {
-                    binding.editName.setText(it.name)
-                    binding.editEmail.setText(it.email)
-                    binding.editSurname.setText(it.surname)
-                    binding.editPhone.setText(it.phone)
+                viewModel.getUserByEmail(email).collect { user ->
+                    if (user != null) {
+                        binding.editName.setText(user.name)
+                        binding.editSurname.setText(user.surname)
+                        binding.editEmail.setText(user.email)
+                        binding.editPhone.setText(user.phone)
+                    } else {
+                        Toast.makeText(requireContext(), "User not found", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }
@@ -50,7 +55,7 @@ class EditProfileFragment : Fragment() {
 
             if (newName.isNotBlank() && newEmail.isNotBlank() && newPhone.isNotBlank()) {
                 viewLifecycleOwner.lifecycleScope.launch {
-                    userDao.updateUserProfile(email!!, newName, newEmail, newPhone)
+                    viewModel.updateUser(email!!, newName, newEmail, newPhone)
                     Toast.makeText(requireContext(), "Profile updated successfully", Toast.LENGTH_SHORT).show()
                     findNavController().navigateUp()
                 }

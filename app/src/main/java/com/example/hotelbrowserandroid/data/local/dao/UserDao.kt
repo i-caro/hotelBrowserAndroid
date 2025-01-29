@@ -5,21 +5,22 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.hotelbrowserandroid.data.local.entity.UserEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface UserDao {
 
+    @Query("SELECT * FROM users")
+    fun getUsers(): Flow<List<UserEntity>>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(users: List<UserEntity>)
+    suspend fun insertUsers(users: List<UserEntity>)
 
     @Query("DELETE FROM users")
-    suspend fun clearAll()
+    suspend fun deleteAllUsers()
 
     @Insert
     suspend fun insertUser(user: UserEntity)
-
-    @Query("SELECT * FROM users")
-    suspend fun getAllUsers(): List<UserEntity>
 
     @Query("SELECT * FROM users WHERE email = :email AND password = :password")
     suspend fun getUser(email: String, password: String): UserEntity?
@@ -28,7 +29,7 @@ interface UserDao {
     suspend fun isEmailRegistered(email: String): Boolean
 
     @Query("SELECT * FROM users WHERE email = :email LIMIT 1")
-    suspend fun getUserByEmail(email: String): UserEntity?
+    fun getUserByEmail(email: String): Flow<UserEntity?>
 
     @Query("UPDATE users SET name = :name, email = :newEmail, phone = :phone WHERE email = :currentEmail")
     suspend fun updateUserProfile(currentEmail: String, name: String, newEmail: String, phone: String)

@@ -13,7 +13,7 @@ import com.example.hotelbrowserandroid.data.local.entity.UserEntity
 
 @Database(
     entities = [UserEntity::class, ServiceEntity::class, BookingEntity::class],
-    version = 2,
+    version = 1,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {

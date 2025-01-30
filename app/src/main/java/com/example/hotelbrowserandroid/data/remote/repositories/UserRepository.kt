@@ -25,8 +25,14 @@ class UserRepository @Inject constructor(
         return userDao.updateUserProfile(currentEmail, name, newEmail, phone)
     }
 
-    suspend fun insertUser(user: UserEntity){
-        return userDao.insertUser(user)
+    suspend fun insertUser(user: UserEntity) {
+        try {
+            strapiService.addUser(user)
+        } catch (e: Exception) {
+            Log.e("UserRepository", "Error inserting user in Strapi: ${e.message}")
+
+            userDao.insertUser(user)
+        }
     }
 
     suspend fun syncUsers() {

@@ -1,25 +1,23 @@
 package com.example.hotelbrowserandroid.ui.auth.viewmodel
 
-import android.app.Application
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
-import com.example.hotelbrowserandroid.data.local.AppDatabase
+import androidx.lifecycle.ViewModel
 import com.example.hotelbrowserandroid.data.local.entity.UserEntity
 import com.example.hotelbrowserandroid.data.remote.repositories.UserRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.first
+import javax.inject.Inject
 
 
-class AuthViewModel(application: Application) : AndroidViewModel(application) {
-
-    private val localDb: AppDatabase = AppDatabase.getDatabase(application)
-    private val userDao = localDb.userDao()
-    private lateinit var usersRepository: UserRepository
+@HiltViewModel
+class AuthViewModel @Inject constructor(
+    private val usersRepository: UserRepository
+) : ViewModel() {
 
     suspend fun login(email: String, password: String): Boolean {
         return try {
             usersRepository.syncUsers()
-
-            val user = localDb.userDao().getUser(email, password)
+            val user = usersRepository.getUserByEmail(email).first()
             user != null
         } catch (e: Exception) {
             Log.e("AuthViewModel", "Login failed", e)
@@ -28,11 +26,7 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     suspend fun isEmailRegistered(email: String): Boolean {
-        return userDao.isEmailRegistered(email)
-    }
-
-    suspend fun getLoggedInUser(email: String): UserEntity? {
-        return usersRepository.getUserByEmail(email).first()
+        return usersRepository.getUserByEmail(email).first() != null
     }
 
     suspend fun register(name: String, email: String, password: String, surname: String, phone: String): Boolean {
@@ -46,7 +40,6 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                 phone = phone,
                 imgUrl = ""
             )
-
             usersRepository.insertUser(newUser)
             true
         } catch (e: Exception) {

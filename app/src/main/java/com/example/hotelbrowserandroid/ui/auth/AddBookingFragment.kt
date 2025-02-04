@@ -77,7 +77,7 @@ class AddBookingFragment : Fragment() {
                 val booking = BookingEntity(
                     id = 0,
                     serviceId = selectedService.id,
-                    userId = user!!.id,
+                    userId = user?.id!!,
                     startDate = startDate,
                     endDate = endDate,
                     peopleAmount = peopleAmount,

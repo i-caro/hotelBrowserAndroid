@@ -1,6 +1,7 @@
 package com.example.hotelbrowserandroid.ui.auth
 
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
@@ -68,20 +69,26 @@ class RegisterFragment : Fragment() {
             }
 
             viewLifecycleOwner.lifecycleScope.launch {
-                val isRegistered = authViewModel.isEmailRegistered(email)
+                try {
+                    val isRegistered = authViewModel.isEmailRegistered(email)
 
-                withContext(Dispatchers.Main) {
                     if (isRegistered) {
                         showToast("Email is already registered")
                     } else {
                         val isSuccess = authViewModel.register(name, email, password, surname, phone)
-                        if (isSuccess) {
-                            showToast("Registration successful")
-                            findNavController().navigate(R.id.action_register_to_login)
-                        } else {
-                            showToast("Registration failed")
+
+                        withContext(Dispatchers.Main) {
+                            if (isSuccess) {
+                                showToast("Registration successful")
+                                findNavController().navigate(R.id.action_register_to_login)
+                            } else {
+                                showToast("Registration failed. Please try again.")
+                            }
                         }
                     }
+                } catch (e: Exception) {
+                    Log.e("RegisterFragment", "Error al registrar: ${e.message}")
+                    showToast("Unexpected error. Try again.")
                 }
             }
         }

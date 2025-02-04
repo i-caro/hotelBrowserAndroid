@@ -68,6 +68,8 @@ dependencies {
     // Retrofit
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
+    implementation(libs.logging.interceptor)
+
 
     // Navigation
     implementation(libs.androidx.navigation.ui.ktx)

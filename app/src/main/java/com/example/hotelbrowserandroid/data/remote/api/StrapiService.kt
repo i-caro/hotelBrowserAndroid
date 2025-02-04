@@ -1,6 +1,5 @@
 package com.example.hotelbrowserandroid.data.remote.api
 
-import com.example.hotelbrowserandroid.data.local.entity.UserEntity
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -19,5 +18,5 @@ interface StrapiService {
     suspend fun addBooking(): StrapiResponse
 
     @POST("usuarios")
-    suspend fun addUser(@Body user: UserEntity): StrapiResponse
+    suspend fun addUser(@Body registerRequest: RegisterRequest): UserDataToLocal
 }

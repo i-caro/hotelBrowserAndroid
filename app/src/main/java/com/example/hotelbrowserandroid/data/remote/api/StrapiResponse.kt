@@ -2,12 +2,30 @@ package com.example.hotelbrowserandroid.data.remote.api
 
 
 data class StrapiResponse(
-    val dataUser: List<UserData>,
+    val dataUser: List<UserDataLocal>,
+    val dataUserLocal: UserDataToLocal,
     val dataBooking: List<BookingData>,
     val dataService: List<ServiceData>
 )
 
+data class RegisterRequest(
+    val data: UserData
+)
+
+data class UserDataLocal(
+    val data: UserDataToLocal
+)
+
 data class UserData(
+    val name: String,
+    val surname: String,
+    val email: String,
+    val phone: String,
+    val imgUrl: String?,
+    val password: String
+)
+
+data class UserDataToLocal(
     val id: Int,
     val attributes: UserAttributes
 )

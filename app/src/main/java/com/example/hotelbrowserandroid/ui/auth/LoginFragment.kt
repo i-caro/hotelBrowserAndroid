@@ -49,7 +49,7 @@ class LoginFragment : Fragment() {
                     val sharedPreferences =
                         requireContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
                     sharedPreferences.edit().putString("logged_in_user_email", email).apply()
-                    sharedPreferences.edit().putInt("logged_in_user_id", userLogged.id).apply()
+                    sharedPreferences.edit().putInt("logged_in_user_id", userLogged.id!!).apply()
 
 
                     Toast.makeText(requireContext(), "Login successful", Toast.LENGTH_SHORT).show()

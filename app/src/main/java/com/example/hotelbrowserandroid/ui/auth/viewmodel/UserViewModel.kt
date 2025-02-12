@@ -14,15 +14,12 @@ class UserViewModel @Inject constructor(
     private val userRepository: UserRepository
 ) : ViewModel() {
 
-    val users: Flow<List<UserEntity>> = userRepository.getUsers()
 
-    fun syncUsers() {
-        viewModelScope.launch {
-            userRepository.syncUsers()
-        }
+    fun getUsers(): Flow<List<UserEntity>>{
+        return userRepository.getUsers()
     }
 
-    fun getUserByEmail(email: String): Flow<UserEntity?> {
+    suspend fun getUserByEmail(email: String): UserEntity? {
         return userRepository.getUserByEmail(email)
     }
 

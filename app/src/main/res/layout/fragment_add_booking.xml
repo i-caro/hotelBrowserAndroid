@@ -55,11 +55,11 @@
         android:layout_marginTop="16dp" />
 
     <!-- Estado -->
-    <Spinner
+    <EditText
         android:id="@+id/statusSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:entries="@array/booking_status"
+        android:hint="Payed or Pending?"
         app:layout_constraintTop_toBottomOf="@id/preferencesInput"
         android:layout_marginTop="16dp" />
 

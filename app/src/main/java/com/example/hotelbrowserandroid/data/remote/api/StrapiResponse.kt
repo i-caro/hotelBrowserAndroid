@@ -1,70 +1,87 @@
 package com.example.hotelbrowserandroid.data.remote.api
 
+import com.example.hotelbrowserandroid.data.local.entity.UserEntity
+
+
+import com.google.gson.annotations.SerializedName
 
 data class StrapiResponse(
-    val dataUser: List<UserDataLocal>,
-    val dataUserLocal: UserDataToLocal,
-    val dataBooking: List<BookingData>,
-    val dataService: List<ServiceData>
+    @SerializedName("data") val data: List<UserDataWrapper>
 )
 
-data class RegisterRequest(
-    val data: UserData
-)
-
-data class UserDataLocal(
-    val data: UserDataToLocal
+data class UserDataWrapper(
+    @SerializedName("id") val id: Int,
+    @SerializedName("attributes") val attributes: UserData
 )
 
 data class UserData(
-    val name: String,
-    val surname: String,
-    val email: String,
-    val phone: String,
-    val imgUrl: String?,
-    val password: String
+    @SerializedName("name") val name: String,
+    @SerializedName("surname") val surname: String,
+    @SerializedName("email") val email: String,
+    @SerializedName("phone") val phone: String,
+    @SerializedName("imgUrl") val imgUrl: String,
+    @SerializedName("password") val password: String,
+) {
+    fun toEntity(): UserEntity {
+        return UserEntity(
+            id = null,
+            name = name,
+            surname = surname,
+            email = email,
+            phone = phone,
+            imgUrl = imgUrl,
+            password = password
+        )
+    }
+}
+
+data class RegisterRequest(
+    @SerializedName("data") val data: UserData
 )
 
 data class UserDataToLocal(
-    val id: Int,
-    val attributes: UserAttributes
+    @SerializedName("id") val id: Int,
+    @SerializedName("attributes") val attributes: UserData
 )
 
-data class UserAttributes(
-    val name: String,
-    val surname: String,
-    val email: String,
-    val phone: String,
-    val imgUrl: String?,
-    val password: String
+data class BookingResponse(
+    @SerializedName("data") val data: List<BookingResponseItem>
+)
+
+data class BookingResponseItem(
+    @SerializedName("id") val id: Int,
+    @SerializedName("attributes") val attributes: BookingData
 )
 
 data class BookingData(
-    val id: Int,
-    val attributes: BookingAttributes
+    @SerializedName("userId") val userId: Int,
+    @SerializedName("serviceId") val serviceId: Int,
+    @SerializedName("endDate") val endDate: String,
+    @SerializedName("startDate") val startDate: String,
+    @SerializedName("peopleAmount") val peopleAmount: Int,
+    @SerializedName("preferences") val preferences: String,
+    @SerializedName("estado") val status: String,
+    @SerializedName("totalPayed") val totalPayed: Double
 )
 
-data class BookingAttributes(
-    val userId: Int,
-    val serviceId: Int,
-    val endDate: String,
-    val startDate: String,
-    val peopleAmount: Int,
-    val preferences: String,
-    val status: String,
-    val totalPayed: Double
+data class BookingRequest(
+    @SerializedName("data") val data: BookingData
+)
+
+data class ServiceResponse(
+    @SerializedName("data") val data: List<ServiceResponseItem>
+)
+
+data class ServiceResponseItem(
+    @SerializedName("id") val id: Int,
+    @SerializedName("attributes") val attributes: ServiceData
 )
 
 data class ServiceData(
-    val id: Int,
-    val attributes: ServiceAttributes
-)
-
-data class ServiceAttributes(
-    val name: String,
-    val type: String,
-    val description: String,
-    val location: String,
-    val available: String,
-    val price: Double
+    @SerializedName("name") val name: String,
+    @SerializedName("type") val type: String,
+    @SerializedName("description") val description: String,
+    @SerializedName("location") val location: String,
+    @SerializedName("available") val available: String,
+    @SerializedName("price") val price: Double
 )

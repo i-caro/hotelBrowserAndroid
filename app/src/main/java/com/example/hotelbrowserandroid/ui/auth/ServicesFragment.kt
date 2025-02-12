@@ -8,17 +8,21 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.hotelbrowserandroid.data.local.AppDatabase
 import com.example.hotelbrowserandroid.data.remote.repositories.ServiceRepository
 import com.example.hotelbrowserandroid.databinding.FragmentServiceBinding
 import com.example.hotelbrowserandroid.ui.adapters.ServiceAdapter
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class ServicesFragment : Fragment() {
 
     private lateinit var binding: FragmentServiceBinding
-    private lateinit var serviceRepository: ServiceRepository
     private lateinit var serviceAdapter: ServiceAdapter
+
+    @Inject
+    lateinit var serviceRepository: ServiceRepository
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -29,7 +33,6 @@ class ServicesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
         serviceAdapter = ServiceAdapter(mutableListOf())
 
@@ -53,3 +56,4 @@ class ServicesFragment : Fragment() {
         }
     }
 }
+

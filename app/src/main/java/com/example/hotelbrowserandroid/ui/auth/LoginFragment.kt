@@ -2,6 +2,7 @@ package com.example.hotelbrowserandroid.ui.auth
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,23 +12,17 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.hotelbrowserandroid.R
-import com.example.hotelbrowserandroid.data.remote.repositories.BookingRepository
-import com.example.hotelbrowserandroid.data.remote.repositories.ServiceRepository
-import com.example.hotelbrowserandroid.data.remote.repositories.UserRepository
 import com.example.hotelbrowserandroid.databinding.FragmentLoginBinding
 import com.example.hotelbrowserandroid.ui.auth.viewmodel.AuthViewModel
-import kotlinx.coroutines.flow.first
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
-data class User(val id: Int, val name: String, val email: String, val password: String)
 
+@AndroidEntryPoint
 class LoginFragment : Fragment() {
 
     private lateinit var binding: FragmentLoginBinding
     private val authViewModel: AuthViewModel by viewModels()
-    private lateinit var usersRepository: UserRepository
-    private lateinit var bookingRepository: BookingRepository
-    private lateinit var serviceRepository: ServiceRepository
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -38,28 +33,40 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding.loginButton.setOnClickListener {
-            val email = binding.emailInput.text.toString()
-            val password = binding.passwordInput.text.toString()
+            val email = binding.emailInput.text.toString().trim()
+            val password = binding.passwordInput.text.toString().trim()
+
+            if (email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(requireContext(), "Por favor, completa los campos", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
             viewLifecycleOwner.lifecycleScope.launch {
+                val userLogged = authViewModel.getUserByEmail(email)
+                val userId = userLogged!!.id!!
                 val isSuccess = authViewModel.login(email, password)
                 if (isSuccess) {
-                    val userLogged = usersRepository.getUserByEmail(email).first()!!
-                    val sharedPreferences =
-                        requireContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
-                    sharedPreferences.edit().putString("logged_in_user_email", email).apply()
-                    sharedPreferences.edit().putInt("logged_in_user_id", userLogged.id!!).apply()
+                    val userLogged = authViewModel.getUserByEmail(email)
 
+                    if (userLogged?.id != null) {
+                        val sharedPreferences = requireContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+                        sharedPreferences.edit().apply {
+                            putString("logged_in_user_email", userLogged.email)
+                            putInt("logged_in_user_id", userId)
+                            Log.d("user", "Se ha guardado el id $userId")
+                            apply()
+                        }
 
-                    Toast.makeText(requireContext(), "Login successful", Toast.LENGTH_SHORT).show()
-                    findNavController().navigate(R.id.action_loginFragment_to_profile)
+                        Toast.makeText(requireContext(), "Login exitoso", Toast.LENGTH_SHORT).show()
+                        findNavController().navigate(R.id.action_loginFragment_to_profile)
+                    } else {
+                        Toast.makeText(requireContext(), "Error al obtener datos del usuario", Toast.LENGTH_SHORT).show()
+                        Log.e("LoginFragment", "El usuario es nulo o no tiene ID.")
+                    }
                 } else {
-                    Toast.makeText(
-                        requireContext(),
-                        "Invalid email or password",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Toast.makeText(requireContext(), "Email o contraseña incorrectos", Toast.LENGTH_SHORT).show()
                 }
             }
         }

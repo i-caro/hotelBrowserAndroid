@@ -15,7 +15,6 @@ class BookingAdapter(private var bookings: List<BookingEntity>) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookingViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_booking, parent, false)
         return BookingViewHolder(view)
-
     }
 
     override fun onBindViewHolder(holder: BookingViewHolder, position: Int) {
@@ -26,7 +25,7 @@ class BookingAdapter(private var bookings: List<BookingEntity>) :
     override fun getItemCount(): Int = bookings.size
 
     fun updateBookings(newBookings: List<BookingEntity>) {
-        this.bookings = newBookings
+        bookings = newBookings
         notifyDataSetChanged()
     }
 
@@ -37,7 +36,6 @@ class BookingAdapter(private var bookings: List<BookingEntity>) :
         private val totalPayedTextView: TextView = itemView.findViewById(R.id.totalPayedTextView)
 
         fun bind(booking: BookingEntity) {
-
             serviceNameTextView.text = "Service ID: ${booking.serviceId}"
             startDateTextView.text = "Start: ${booking.startDate}"
             endDateTextView.text = "End: ${booking.endDate}"
@@ -45,3 +43,4 @@ class BookingAdapter(private var bookings: List<BookingEntity>) :
         }
     }
 }
+

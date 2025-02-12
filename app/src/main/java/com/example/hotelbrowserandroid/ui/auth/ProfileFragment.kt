@@ -63,16 +63,16 @@ class ProfileFragment : Fragment() {
 
         if (email != null) {
             viewLifecycleOwner.lifecycleScope.launch {
-                viewModel.getUserByEmail(email).collect { user ->
+                val user = viewModel.getUserByEmail(email)
                     if (user != null) {
                         binding.userName.text = user.name
                         binding.userSurname.text = user.surname
                         binding.userEmail.text = user.email
                         binding.userPhone.text = user.phone
                     } else {
-                        Toast.makeText(requireContext(), "User not found", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "User not found", Toast.LENGTH_SHORT)
+                            .show()
                     }
-                }
             }
         } else {
             Toast.makeText(requireContext(), "No user logged in", Toast.LENGTH_SHORT).show()

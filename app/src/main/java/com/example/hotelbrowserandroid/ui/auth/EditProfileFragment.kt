@@ -30,20 +30,20 @@ class EditProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val sharedPreferences = requireContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+        val sharedPreferences =
+            requireContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
         val email = sharedPreferences.getString("logged_in_user_email", null)
 
         if (email != null) {
             viewLifecycleOwner.lifecycleScope.launch {
-                viewModel.getUserByEmail(email).collect { user ->
-                    if (user != null) {
-                        binding.editName.setText(user.name)
-                        binding.editSurname.setText(user.surname)
-                        binding.editEmail.setText(user.email)
-                        binding.editPhone.setText(user.phone)
-                    } else {
-                        Toast.makeText(requireContext(), "User not found", Toast.LENGTH_SHORT).show()
-                    }
+                val user = viewModel.getUserByEmail(email)
+                if (user != null) {
+                    binding.editName.setText(user.name)
+                    binding.editSurname.setText(user.surname)
+                    binding.editEmail.setText(user.email)
+                    binding.editPhone.setText(user.phone)
+                } else {
+                    Toast.makeText(requireContext(), "User not found", Toast.LENGTH_SHORT).show()
                 }
             }
         }

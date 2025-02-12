@@ -29,8 +29,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel.syncUsers()
-        populateServices()
+        viewModel.getUsers()
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
@@ -43,18 +42,6 @@ class MainActivity : AppCompatActivity() {
                     binding.bottomNavigation.visibility = View.GONE
                 }
                 else -> binding.bottomNavigation.visibility = View.VISIBLE
-            }
-        }
-    }
-
-    private fun populateServices() {
-        lifecycleScope.launch {
-            val services = serviceRepository.getServices()
-            services.collect { existingServices ->
-                if (existingServices.isNotEmpty()) {
-                    serviceRepository.insertAllServices(existingServices)
-                    Toast.makeText(this@MainActivity, "Services added to the database", Toast.LENGTH_SHORT).show()
-                }
             }
         }
     }

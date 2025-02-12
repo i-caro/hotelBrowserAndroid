@@ -16,9 +16,4 @@ class ServiceViewModel @Inject constructor(
 
     val services: Flow<List<ServiceEntity>> = serviceRepository.getServices()
 
-    fun syncServices() {
-        viewModelScope.launch {
-            serviceRepository.syncBookings()
-        }
-    }
 }

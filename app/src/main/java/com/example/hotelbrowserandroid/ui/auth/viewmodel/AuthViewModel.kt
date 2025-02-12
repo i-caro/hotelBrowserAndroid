@@ -3,14 +3,9 @@ package com.example.hotelbrowserandroid.ui.auth.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.example.hotelbrowserandroid.data.local.entity.UserEntity
-import com.example.hotelbrowserandroid.data.remote.api.RegisterRequest
-import com.example.hotelbrowserandroid.data.remote.api.UserAttributes
-import com.example.hotelbrowserandroid.data.remote.api.UserData
 import com.example.hotelbrowserandroid.data.remote.repositories.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.first
 import javax.inject.Inject
-
 
 @HiltViewModel
 class AuthViewModel @Inject constructor(
@@ -19,17 +14,29 @@ class AuthViewModel @Inject constructor(
 
     suspend fun login(email: String, password: String): Boolean {
         return try {
-            usersRepository.syncUsers()
-            val user = usersRepository.login(email, password)
-            user != null
+            usersRepository.login(email, password) != null
         } catch (e: Exception) {
             Log.e("AuthViewModel", "Login failed", e)
             false
         }
     }
 
+    suspend fun getUserByEmail(email: String): UserEntity? {
+        return try {
+            usersRepository.getUserByEmail(email)
+        } catch (e: Exception) {
+            Log.e("AuthViewModel", "Login failed", e)
+            return null
+        }
+    }
+
     suspend fun isEmailRegistered(email: String): Boolean {
-        return usersRepository.getUserByEmail(email).first() != null
+        return try {
+                usersRepository.getUserByEmail(email) != null
+        } catch (e: Exception) {
+            Log.e("AuthViewModel", "Email check failed", e)
+            false
+        }
     }
 
     suspend fun register(name: String, email: String, password: String, surname: String, phone: String): Boolean {

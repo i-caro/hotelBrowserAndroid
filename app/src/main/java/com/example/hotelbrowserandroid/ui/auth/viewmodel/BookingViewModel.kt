@@ -16,9 +16,4 @@ class BookingViewModel @Inject constructor(
 
     val bookings: Flow<List<BookingEntity>> = bookingRepository.getBookings()
 
-    fun syncBookings() {
-        viewModelScope.launch {
-            bookingRepository.syncBookings()
-        }
-    }
 }

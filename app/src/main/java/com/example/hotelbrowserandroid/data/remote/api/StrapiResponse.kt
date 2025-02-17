@@ -85,3 +85,4 @@ data class ServiceData(
     @SerializedName("available") val available: String,
     @SerializedName("price") val price: Double
 )
+

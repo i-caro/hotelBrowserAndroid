@@ -1,5 +1,9 @@
 package com.example.hotelbrowserandroid.ui.auth.viewmodel
 
+import android.net.Uri
+import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.hotelbrowserandroid.data.local.entity.UserEntity
@@ -25,5 +29,21 @@ class UserViewModel @Inject constructor(
 
     suspend fun updateUser(currentEmail: String, name: String, newEmail: String, phone:String){
         return userRepository.updateUser(currentEmail, name, newEmail, phone)
+    }
+
+    fun uploadProfileImage(imageUri: Uri, userId: String): LiveData<Boolean> {
+        val result = MutableLiveData<Boolean>()
+
+        viewModelScope.launch {
+            try {
+                val success = userRepository.uploadImageAndUpdateUser(imageUri, userId)
+                result.postValue(success)
+            } catch (e: Exception) {
+                Log.e("UserViewModel", "Error actualizando usuario con imagen", e)
+                result.postValue(false)
+            }
+        }
+
+        return result
     }
 }

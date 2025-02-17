@@ -1,5 +1,7 @@
 package com.example.hotelbrowserandroid.data.remote.api
 
+import okhttp3.MultipartBody
+import retrofit2.Response
 import retrofit2.http.*
 
 interface StrapiService {
@@ -35,4 +37,11 @@ interface StrapiService {
     /** Obtener un usuario específico por ID */
     @GET("usuarios/{id}")
     suspend fun getUserById(@Path("id") userId: Int): UserDataToLocal
+
+    @Multipart
+    @PUT("users/{id}")
+    suspend fun updateUserWithImage(
+        @Path("id") userId: String,
+        @Part profileImage: MultipartBody.Part
+    ): Response<UserData>
 }

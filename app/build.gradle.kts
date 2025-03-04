@@ -96,6 +96,10 @@ dependencies {
     implementation(libs.androidx.camera.video)
     implementation(libs.androidx.camera.view)
     implementation(libs.androidx.camera.extensions)
+
+    // Map
+    implementation (libs.play.services.maps)
+
 }
 
 kapt {

@@ -7,6 +7,7 @@ import android.util.Log
 import com.example.hotelbrowserandroid.data.local.entity.UserEntity
 import com.example.hotelbrowserandroid.data.remote.api.RegisterRequest
 import com.example.hotelbrowserandroid.data.remote.api.StrapiService
+import com.example.hotelbrowserandroid.data.remote.api.UpdateUserRequest
 import com.example.hotelbrowserandroid.data.remote.api.UserData
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
@@ -107,36 +108,50 @@ class UserRepository @Inject constructor(
         }
     }
 
-    suspend fun uploadImageAndUpdateUser(imageUri: Uri, userId: String): Boolean {
+    suspend fun uploadImageAndUpdateUser(imageUri: Uri, userId: Int): Boolean {
         return try {
             val imageFile = uriToFile(imageUri, context)
             val requestFile = imageFile.asRequestBody("image/jpeg".toMediaTypeOrNull())
-            val imagePart = MultipartBody.Part.createFormData("profileImage", imageFile.name, requestFile)
+            val imagePart = MultipartBody.Part.createFormData("files", imageFile.name, requestFile)
 
-            val response = strapiService.updateUserWithImage(userId, imagePart)
+            val response = strapiService.uploadImage(imagePart)
 
             if (response.isSuccessful) {
-                Log.d("UserRepository", "Usuario actualizado con imagen: ${response.body()?.imgUrl}")
-                true
+                val userData = response.body()
+                val imageUrl = userData!!.attributes.imgUrl?:""
+
+                strapiService.updateUser(
+                    userId,
+                    mapOf("imgUrl" to imageUrl)
+                )
             } else {
-                Log.e("UserRepository", "Error en la actualización: ${response.errorBody()?.string()}")
-                false
+                Log.e("UserRepository", "Error en la subida de la imagen: ${response.errorBody()?.string()}")
             }
+            false
         } catch (e: Exception) {
             Log.e("UserRepository", "Error al subir imagen y actualizar usuario", e)
             false
         }
     }
 
+
+
+
     private fun uriToFile(uri: Uri, context: Context): File {
-        val contentResolver = context.contentResolver
-        val tempFile = File.createTempFile("upload_", ".jpg", context.cacheDir)
-        tempFile.outputStream().use { outputStream ->
-            contentResolver.openInputStream(uri)?.use { inputStream ->
-                inputStream.copyTo(outputStream)
+        return try {
+            val contentResolver = context.contentResolver
+            val tempFile = File.createTempFile("upload_", ".jpg", context.cacheDir)
+            tempFile.outputStream().use { outputStream ->
+                contentResolver.openInputStream(uri)?.use { inputStream ->
+                    inputStream.copyTo(outputStream)
+                }
             }
+            tempFile
+        } catch (e: Exception) {
+            Log.e("UserRepository", "Error al convertir URI a archivo", e)
+            throw Exception("Error al manejar el archivo de imagen")
         }
-        return tempFile
     }
+
 }
 

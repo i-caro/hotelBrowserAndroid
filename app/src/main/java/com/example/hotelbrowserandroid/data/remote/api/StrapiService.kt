@@ -39,9 +39,9 @@ interface StrapiService {
     suspend fun getUserById(@Path("id") userId: Int): UserDataToLocal
 
     @Multipart
-    @PUT("users/{id}")
-    suspend fun updateUserWithImage(
-        @Path("id") userId: String,
+    @PUT("usuarios")
+    suspend fun uploadImage(
         @Part profileImage: MultipartBody.Part
-    ): Response<UserData>
+    ): Response<UserDataToLocal>
+
 }

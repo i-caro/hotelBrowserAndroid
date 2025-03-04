@@ -31,19 +31,25 @@ class UserViewModel @Inject constructor(
         return userRepository.updateUser(currentEmail, name, newEmail, phone)
     }
 
-    fun uploadProfileImage(imageUri: Uri, userId: String): LiveData<Boolean> {
+    fun uploadProfileImage(imageUri: Uri, userId: Int): LiveData<Boolean> {
         val result = MutableLiveData<Boolean>()
 
         viewModelScope.launch {
             try {
                 val success = userRepository.uploadImageAndUpdateUser(imageUri, userId)
                 result.postValue(success)
+                if (success) {
+                    Log.d("UserViewModel", "Imagen subida correctamente a Strapi")
+                } else {
+                    Log.e("UserViewModel", "Error al subir la imagen a Strapi")
+                }
             } catch (e: Exception) {
-                Log.e("UserViewModel", "Error actualizando usuario con imagen", e)
+                Log.e("UserViewModel", "Error al actualizar usuario con imagen", e)
                 result.postValue(false)
             }
         }
 
         return result
     }
+
 }
